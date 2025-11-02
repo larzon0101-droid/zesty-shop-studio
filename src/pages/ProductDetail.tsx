@@ -3,12 +3,14 @@ import { mockProducts } from "@/data/mockProducts";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useCart } from "@/contexts/CartContext";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const product = mockProducts.find((p) => p.id === id);
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
+  const { addToCart } = useCart();
 
   if (!product) {
     return <div className="container mx-auto px-4 py-8">Product not found</div>;
@@ -19,6 +21,14 @@ const ProductDetail = () => {
       toast.error("Please select a size");
       return;
     }
+    
+    addToCart({
+      ...product,
+      quantity: 1,
+      selectedSize: selectedSize || undefined,
+      selectedColor: selectedColor || undefined,
+    });
+    
     toast.success("Added to cart");
   };
 

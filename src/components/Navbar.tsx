@@ -1,10 +1,10 @@
 import { ShoppingBag, Search, User, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
-import { useState } from "react";
+import { useCart } from "@/contexts/CartContext";
 
 export const Navbar = () => {
-  const [cartCount] = useState(0);
+  const { cartCount } = useCart();
 
   return (
     <nav className="sticky top-0 z-50 bg-background border-b border-border">
